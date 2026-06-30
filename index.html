@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horario de Clases - Stitch 🌺</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500;700&display=swap');
+
+        :root {
+            --stitch-blue-dark: #0d47a1;
+            --stitch-blue-mid: #29b6f6;
+            --stitch-blue-light: #e1f5fe;
+            --stitch-pink-dark: #ff4081;
+            --stitch-pink-mid: #ff80ab;
+            --stitch-pink-light: #fff0f5;
+            --bg-color: #ffeef2;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#ffccd5 1.5px, transparent 1.5px), radial-gradient(#ffccd5 1.5px, var(--bg-color) 1.5px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            color: #333;
+            min-height: 100vh;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 30px;
+            box-shadow: 0 15px 35px rgba(255, 105, 180, 0.15);
+            border: 6px solid #b3e5fc;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header-banner {
+            background: linear-gradient(135deg, #29b6f6, #0288d1);
+            padding: 35px 20px;
+            text-align: center;
+            position: relative;
+            color: white;
+            border-bottom: 6px solid var(--stitch-pink-mid);
+        }
+
+        .header-banner h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0px var(--stitch-blue-dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .header-banner p {
+            font-size: 1.2rem;
+            font-weight: 700;
+            opacity: 0.95;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .schedule-table-wrapper {
+            overflow-x: auto;
+            padding: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 12px;
+        }
+
+        th {
+            background-color: #29b6f6;
+            color: white;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.25rem;
+            padding: 16px;
+            border-radius: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        th:first-child {
+            background-color: var(--stitch-pink-dark);
+        }
+
+        td {
+            background: #fff;
+            padding: 18px;
+            border-radius: 15px;
+            text-align: center;
+            vertical-align: middle;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        td.subject-name {
+            font-family: 'Fredoka One', cursive;
+            color: var(--stitch-blue-dark);
+            text-align: left;
+            font-size: 1.1rem;
+            background-color: var(--stitch-blue-light);
+            border-left: 6px solid #0288d1;
+            width: 22%;
+        }
+
+        tr:nth-child(even) td.subject-name {
+            background-color: var(--stitch-pink-light);
+            border-left: 6px solid var(--stitch-pink-dark);
+            color: #c2185b;
+        }
+
+        td.empty {
+            background: rgba(245, 245, 245, 0.6);
+            color: #cbd5e1;
+            font-size: 1.3rem;
+            user-select: none;
+        }
+
+        .class-box {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .aula {
+            background: #e3f2fd;
+            color: #0d47a1;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin: 0 auto;
+            border: 1px solid #bbdefb;
+            letter-spacing: 0.5px;
+        }
+
+        tr:nth-child(even) .aula {
+            background: #fce4ec;
+            color: #c2185b;
+            border-color: #f8bbd0;
+        }
+
+        .time {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #455a64;
+        }
+
+        .lab-box {
+            background: #f1f8e9;
+            border: 2px dashed #a5d6a7;
+        }
+
+        .lab-box .aula {
+            background: #e8f5e9;
+            color: #1b5e20;
+            border-color: #c8e6c9;
+        }
+
+        /* Hover Interaction Effects */
+        td:not(.empty):hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(41, 182, 246, 0.25);
+            border-color: #29b6f6;
+            cursor: pointer;
+        }
+
+        tr:nth-child(even) td:not(.empty):hover {
+            box-shadow: 0 8px 20px rgba(255, 64, 129, 0.25);
+            border-color: var(--stitch-pink-dark);
+        }
+
+        /* Cute Footer styling */
+        .footer-note {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.95rem;
+            color: #880e4f;
+            font-weight: 700;
+        }
+
+        /* Responsive UI */
+        @media (max-width: 900px) {
+            table {
+                border-spacing: 8px;
+            }
+            th, td {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+            td.subject-name {
+                font-size: 0.95rem;
+            }
+            .header-banner h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header-banner">
+            <h1>
+                🌴 HORARIO DE CLASES 🌺
+            </h1>
+            <p>"Ohana significa familia, y tu familia nunca te abandona ni te olvida" 🌊🐾</p>
+        </header>
+
+        <div class="schedule-table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>📚 Materia</th>
+                        <th>☀️ Lunes</th>
+                        <th>🌴 Martes</th>
+                        <th>🌺 Jueves</th>
+                        <th>🌊 Viernes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="subject-name">🧪 Química Orgánica</td>
+                        <td class="empty">🐾</td>
+                        <td>
+                            <div class="class-box">
+                                <span class="aula">AULA A-1</span>
+                                <span class="time">8:00 AM - 9:40 AM</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-box">
+                                <span class="aula">AULA A-1</span>
+                                <span class="time">11:00 AM - 11:50 AM</span>
+                            </div>
+                        </td>
+                        <td class="empty">🐾</td>
+                    </tr>
+                    <tr>
+                        <td class="subject-name">🧪 Química Orgánica</td>
+                        <td class="empty">🐾</td>
+                        <td>
+                            <div class="class-box">
+                                <span class="aula">AULA A-1</span>
+                                <span class="time">9:00 AM - 9:40 AM</span>
+                            </div>
+                        </td>
+                        <td class="empty">🐾</td>
+                        <td class="empty">🐾</td>
+                    </tr>
+                    <tr>
+                        <td class="subject-name">🩺 Biofísica Médica</td>
+                        <td>
+                            <div class="class-box">
+                                <span class="aula">AULA A-9</span>
+                                <span class="time">9:00 AM - 9:50 AM</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-box">
+                                <span class="aula">AULA A-7</span>
+                                <span class="time">2:00 PM - 3:40 PM</span>
+                            </div>
+                        </td>
+                        <td class="empty">🐾</td>
+                        <td>
+                            <div class="class-box">
+                                <span class="aula">AULA A-2</span>
+                                <span class="time">7:00 AM - 8:40 AM</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="subject-name">🗣️ Inglés II</td>
+                        <td>
+                            <div class="class-box">
+                                <span class="aula">AULA A-6</span>
+                                <span class="time">10:00 AM - 11:40 AM</span>
+                            </div>
+                        </td>
+                        <td class="empty">🐾</td>
+                        <td>
+                            <div class="class-box">
+                                <span class="aula">AULA 4-6</span>
+                                <span class="time">7:00 AM - 7:50 AM</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-box">
+                                <span class="aula">AULA A-6</span>
+                                <span class="time">12:00 PM - 1:40 PM</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="subject-name">🧠 Psicología General</td>
+                        <td class="empty">🐾</td>
+                        <td class="empty">🐾</td>
+                        <td>
+                            <div class="class-box">
+                                <span class="aula">AULA A-6</span>
+                                <span class="time">2:00 PM - 3:40 PM</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-box">
+                                <span class="aula">AULA A-8</span>
+                                <span class="time">2:00 PM - 3:40 PM</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="subject-name">🧬 Biología Molecular</td>
+                        <td>
+                            <div class="class-box">
+                                <span class="aula">AULA A-9</span>
+                                <span class="time">3:00 PM - 4:40 PM</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="class-box">
+                                <span class="aula">AULA A-9</span>
+                                <span class="time">11:00 AM - 12:40 PM</span>
+                            </div>
+                        </td>
+                        <td class="empty">🐾</td>
+                        <td class="empty">🐾</td>
+                    </tr>
+                    <tr>
+                        <td class="subject-name">🔬 Labs (Prácticas)</td>
+                        <td class="empty">🐾</td>
+                        <td class="empty">🐾</td>
+                        <td class="lab-box">
+                            <div class="class-box">
+                                <span class="aula">LAB BIOLOGÍA</span>
+                                <span class="time">8:00 AM - 11:00 AM</span>
+                            </div>
+                        </td>
+                        <td class="lab-box">
+                            <div class="class-box">
+                                <span class="aula">LAB QUÍMICA</span>
+                                <span class="time">9:00 AM - 12:00 PM</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        Experimento 626 listo para el ciclo escolar 🚀✨
+    </div>
+
+</body>
+</html>
