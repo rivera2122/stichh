@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -31,7 +32,7 @@
             background-position: 0 0, 20px 20px;
             color: #333;
             min-height: 100vh;
-            padding: 20px 10px;
+            padding: 30px 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -51,7 +52,7 @@
 
         .header-banner {
             background: linear-gradient(135deg, #29b6f6, #0288d1);
-            padding: 30px 15px;
+            padding: 35px 20px;
             text-align: center;
             position: relative;
             color: white;
@@ -60,7 +61,7 @@
 
         .header-banner h1 {
             font-family: 'Fredoka One', cursive;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             letter-spacing: 2px;
             text-shadow: 3px 3px 0px var(--stitch-blue-dark);
             margin-bottom: 8px;
@@ -71,15 +72,15 @@
         }
 
         .header-banner p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 700;
             opacity: 0.95;
             text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         }
 
         .schedule-table-wrapper {
-            padding: 25px;
             overflow-x: auto;
+            padding: 30px;
         }
 
         table {
@@ -179,6 +180,7 @@
             border-color: #c8e6c9;
         }
 
+        /* Hover Interaction Effects */
         td:not(.empty):hover {
             transform: translateY(-4px);
             box-shadow: 0 8px 20px rgba(41, 182, 246, 0.25);
@@ -191,6 +193,7 @@
             border-color: var(--stitch-pink-dark);
         }
 
+        /* Cute Footer styling */
         .footer-note {
             margin-top: 20px;
             text-align: center;
@@ -199,136 +202,20 @@
             font-weight: 700;
         }
 
-        /* 📱 RESPONSIVE DESIGN (Modo Celular Vertical) */
-        @media (max-width: 768px) and (orientation: portrait) {
-            body {
-                padding: 10px 5px;
-            }
-
-            .header-banner h1 {
-                font-size: 1.8rem;
-            }
-
-            .header-banner p {
-                font-size: 0.95rem;
-            }
-
-            .schedule-table-wrapper {
-                padding: 12px;
-            }
-
-            /* Desactivamos el comportamiento de tabla estándar */
-            table, thead, tbody, th, td, tr {
-                display: block;
-                width: 100% !important;
-            }
-
-            thead {
-                display: none; /* Ocultamos cabeceras de columnas */
-            }
-
+        /* Responsive UI */
+        @media (max-width: 900px) {
             table {
-                border-spacing: 0;
-            }
-
-            tr {
-                background: #fff;
-                margin-bottom: 20px;
-                border-radius: 20px;
-                padding: 10px;
-                box-shadow: 0 6px 15px rgba(255, 105, 180, 0.08);
-                border: 3px solid #b3e5fc;
-            }
-
-            tr:nth-child(even) {
-                border-color: var(--stitch-pink-mid);
-            }
-
-            td {
-                margin-bottom: 8px;
-                border-radius: 12px;
-                box-shadow: none;
-            }
-
-            td.subject-name {
-                font-size: 1.2rem;
-                padding: 12px;
-                border-left: none;
-                border-bottom: 4px solid #0288d1;
-                border-radius: 14px;
-                text-align: center;
-                margin-bottom: 12px;
-            }
-
-            tr:nth-child(even) td.subject-name {
-                border-bottom: 4px solid var(--stitch-pink-dark);
-            }
-
-            /* Ocultamos celdas vacías para ahorrar espacio en vertical */
-            td.empty {
-                display: none;
-            }
-
-            /* Estilo para las celdas con clases activas */
-            td:not(.subject-name):not(.empty) {
-                padding: 12px;
-                background: #f8fbfd;
-                border: 1px solid #e0f2f1;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            /* Inyectamos dinámicamente el día correspondiente usando el atributo data-day */
-            td:not(.subject-name):not(.empty)::before {
-                content: attr(data-day);
-                font-family: 'Fredoka One', cursive;
-                color: white;
-                background: #29b6f6;
-                padding: 3px 12px;
-                border-radius: 12px;
-                font-size: 0.8rem;
-                margin-bottom: 8px;
-                letter-spacing: 0.5px;
-            }
-
-            tr:nth-child(even) td:not(.subject-name):not(.empty)::before {
-                background: var(--stitch-pink-dark);
-            }
-
-            /* Ajuste especial para laboratorios en móvil */
-            td.lab-box {
-                background: #f1f8e9;
-                border: 1px dashed #a5d6a7;
-            }
-            
-            td.lab-box::before {
-                background: #4caf50 !important;
-            }
-        }
-
-        /* 🔄 RESPONSIVE DESIGN (Modo Horizontal o Pantallas Grandes) */
-        @media (max-width: 900px) and (orientation: landscape) {
-            table {
-                border-spacing: 6px;
+                border-spacing: 8px;
             }
             th, td {
-                padding: 10px;
-                font-size: 0.85rem;
+                padding: 12px;
+                font-size: 0.9rem;
             }
             td.subject-name {
-                font-size: 0.9rem;
-                width: 20%;
+                font-size: 0.95rem;
             }
             .header-banner h1 {
-                font-size: 1.8rem;
-            }
-            .aula {
-                padding: 2px 8px;
-                font-size: 0.75rem;
-            }
-            .time {
-                font-size: 0.85rem;
+                font-size: 2rem;
             }
         }
     </style>
@@ -336,11 +223,15 @@
 <body>
 
     <div class="container">
+        <!-- Stitch Theme Header Banner -->
         <header class="header-banner">
-            <h1>🌴 HORARIO DE CLASES 🌺</h1>
+            <h1>
+                🌴 HORARIO DE CLASES 🌺
+            </h1>
             <p>"Ohana significa familia, y tu familia nunca te abandona ni te olvida" 🌊🐾</p>
         </header>
 
+        <!-- Main Schedule Grid Structure -->
         <div class="schedule-table-wrapper">
             <table>
                 <thead>
@@ -353,16 +244,17 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- Row 1: Química Orgánica -->
                     <tr>
                         <td class="subject-name">🧪 Química Orgánica</td>
                         <td class="empty">🐾</td>
-                        <td data-day="Martes 🌴">
+                        <td>
                             <div class="class-box">
                                 <span class="aula">AULA A-1</span>
                                 <span class="time">8:00 AM - 9:40 AM</span>
                             </div>
                         </td>
-                        <td data-day="Jueves 🌺">
+                        <td>
                             <div class="class-box">
                                 <span class="aula">AULA A-1</span>
                                 <span class="time">11:00 AM - 11:50 AM</span>
@@ -370,76 +262,80 @@
                         </td>
                         <td class="empty">🐾</td>
                     </tr>
+                    <!-- Row 2: Biofísica Médica -->
                     <tr>
                         <td class="subject-name">🩺 Biofísica Médica</td>
-                        <td data-day="Lunes ☀️">
+                        <td>
                             <div class="class-box">
                                 <span class="aula">AULA A-9</span>
                                 <span class="time">9:00 AM - 9:50 AM</span>
                             </div>
                         </td>
-                        <td data-day="Martes 🌴">
+                        <td>
                             <div class="class-box">
                                 <span class="aula">AULA A-7</span>
                                 <span class="time">2:00 PM - 3:40 PM</span>
                             </div>
                         </td>
                         <td class="empty">🐾</td>
-                        <td data-day="Viernes 🌊">
+                        <td>
                             <div class="class-box">
                                 <span class="aula">AULA A-2</span>
                                 <span class="time">7:00 AM - 8:40 AM</span>
                             </div>
                         </td>
                     </tr>
+                    <!-- Row 3: Inglés II -->
                     <tr>
                         <td class="subject-name">🗣️ Inglés II</td>
-                        <td data-day="Lunes ☀️">
+                        <td>
                             <div class="class-box">
                                 <span class="aula">AULA A-6</span>
                                 <span class="time">10:00 AM - 11:40 AM</span>
                             </div>
                         </td>
                         <td class="empty">🐾</td>
-                        <td data-day="Jueves 🌺">
+                        <td>
                             <div class="class-box">
                                 <span class="aula">AULA 4-6</span>
                                 <span class="time">7:00 AM - 7:50 AM</span>
                             </div>
                         </td>
-                        <td data-day="Viernes 🌊">
+                        <td>
                             <div class="class-box">
                                 <span class="aula">AULA A-6</span>
                                 <span class="time">12:00 PM - 1:40 PM</span>
                             </div>
                         </td>
                     </tr>
+                    <!-- Row 4: Psicología General -->
                     <tr>
                         <td class="subject-name">🧠 Psicología General</td>
                         <td class="empty">🐾</td>
                         <td class="empty">🐾</td>
-                        <td data-day="Jueves 🌺">
+                        <td>
                             <div class="class-box">
                                 <span class="aula">AULA A-8</span>
                                 <span class="time">2:00 PM - 3:40 PM</span>
                             </div>
                         </td>
-                        <td data-day="Viernes 🌊">
+                        <td>
                             <div class="class-box">
                                 <span class="aula">AULA A-8</span>
                                 <span class="time">2:00 PM - 3:40 PM</span>
                             </div>
                         </td>
                     </tr>
+                    <!-- Row 5: Biología Molecular de la Célula -->
                     <tr>
                         <td class="subject-name">🧬 Biología Molecular</td>
-                        <td data-day="Lunes ☀️">
+                        <td>
                             <div class="class-box">
                                 <span class="aula">AULA A-8</span>
                                 <span class="time">3:00 PM - 4:40 PM</span>
                             </div>
                         </td>
-                        <td data-day="Martes 🌴">
+                        <td>
                             <div class="class-box">
                                 <span class="aula">AULA A-9</span>
                                 <span class="time">11:00 AM - 12:40 PM</span>
@@ -448,17 +344,18 @@
                         <td class="empty">🐾</td>
                         <td class="empty">🐾</td>
                     </tr>
+                    <!-- Row 6: Laboratorios -->
                     <tr>
                         <td class="subject-name">🔬 Labs (Prácticas)</td>
                         <td class="empty">🐾</td>
                         <td class="empty">🐾</td>
-                        <td class="lab-box" data-day="Jueves 🌺">
+                        <td class="lab-box">
                             <div class="class-box">
                                 <span class="aula">LAB BIOLOGÍA</span>
                                 <span class="time">8:00 AM - 11:00 AM</span>
                             </div>
                         </td>
-                        <td class="lab-box" data-day="Viernes 🌊">
+                        <td class="lab-box">
                             <div class="class-box">
                                 <span class="aula">LAB QUÍMICA</span>
                                 <span class="time">9:00 AM - 12:00 PM</span>
@@ -471,8 +368,10 @@
     </div>
 
     <div class="footer-note">
-        Experimento 626 optimizado para cualquier pantalla 🚀✨
+        Experimento 626 listo para el ciclo escolar 🚀✨
     </div>
 
 </body>
 </html>
+
+```
